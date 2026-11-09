@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Speed · RTX PRO 6000 test</title>
+<meta name="description" content="How fast two RTX PRO 6000 cards run DeepSeek V4.1 Flash, how much power they draw, and how much memory the host needs.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<nav class="nav"><div class="wrap">
+  <a class="brand" href="index.html">RTX PRO 6000 test</a>
+  <a class="page" href="index.html">Summary</a>
+  <a class="page" href="speed.html" aria-current="page">Speed</a>
+  <a class="page" href="quality.html">Quality and tools</a>
+  <a class="page" href="broke.html">What broke</a>
+  <a class="page" href="method.html">How we ran it</a>
+</div></nav>
+
+<main class="wrap">
+  <header class="hero">
+    <p class="eyebrow">Speed</p>
+    <h1>It writes 195 tokens a second for one person, and 402 a second in total for eight people at once.</h1>
+    <p class="lede">A token is about three quarters of a word. When more people share the box, each one sees words appear more
+      slowly, but the box gets more done in total.</p>
+  </header>
+
+  <section class="stats">
+    <div class="stat"><div class="num">195<small>tokens/s</small></div><div class="label">one person alone</div>
+      <div class="note">The first word appears 0.2 seconds after the request.</div></div>
+    <div class="stat"><div class="num">402<small>tokens/s</small></div><div class="label">eight people at once, in total</div>
+      <div class="note">Four people at once got 348 a second in total.</div></div>
+    <div class="stat"><div class="num">10<small>seconds</small></div><div class="label">to read a 100,000-token prompt</div>
+      <div class="note">That is about 10,200 tokens a second of reading, and the model found the fact hidden in it.</div></div>
+  </section>
+
+  <section class="picture" data-picture="speed">
+    <div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap">
+      <p class="title">How fast each person sees words appear</p>
+      <button class="replay" type="button">Play again</button>
+    </div>
+    <div class="legend"><span><i style="background:var(--deepseek)"></i>DeepSeek, tokens a second for each person</span>
+      <span><i style="background:var(--opus);opacity:.35"></i>Opus in Will's sessions</span></div>
+    <div class="chart" aria-label="Bar chart: 195 tokens a second for one person, 102 each for four, 57 each for eight; Opus streams 95 to 115"
+      data-bars='[{"label":"1 person","v":195.2,"total":190},{"label":"4 people","v":101.8,"total":348},{"label":"8 people","v":56.5,"total":402}]'
+      data-band='{"lo":95,"hi":115}'></div>
+    <p class="caption">Each blue bar is the speed one person sees while the box writes code for that many people at once. The orange
+      band is how fast Opus streams in Will's own sessions. Alone, DeepSeek is about twice as fast as Opus; with four people at once it
+      matches Opus, and with eight it is about half as fast.</p>
+  </section>
+
+  <h2>Power and memory decide the parts list</h2>
+  <p class="sub">We logged every card's watts once a second during the tests, and the memory the running model held.</p>
+  <div class="tiles two">
+    <div class="tile"><h3>About 245 watts per card while writing</h3>
+      <p>Writing words is limited by memory speed, not by raw compute, so the cards ran far below their limit. The peak was 285 watts
+        on a card capped at 450.</p>
+      <p class="now">So a Max-Q card, capped at 300 watts, writes just as fast.</p></div>
+    <div class="tile"><h3>About 390 watts per card while reading a long prompt</h3>
+      <p>Reading a 100,000-token prompt is the heavy part, and each card drew up to 398 watts for those ten seconds.</p>
+      <p class="now">So a Max-Q card would read long prompts somewhat more slowly.</p></div>
+    <div class="tile"><h3>220 GiB of the computer's memory</h3>
+      <p>The model is too big for two cards alone. A third of its experts and its lookup tables live in the computer's memory, locked
+        in place so that the cards can read them directly.</p>
+      <p class="now">So the host needs 384 GB. With 256 GB, the computer would run out.</p></div>
+    <div class="tile"><h3>Two cards, no fast link between them</h3>
+      <p>The cards share the work over the normal PCIe slots, with no NVLink bridge. The recipe is built for exactly that, so a plain
+        workstation board is enough.</p></div>
+  </div>
+
+  <details>
+    <summary>For Jacob: how these were measured</summary>
+    <div class="body">
+      <p>The server is diffbot's 2-card recipe for DeepSeek-V4.1-Flash-1017 (Hugging Face <code>diffbot/DeepSeek-V4.1-Flash-EXL3-3bpw-2x-RTX-PRO-6000</code>,
+        revision <code>451f7dc</code>) with its defaults: vLLM at tensor-parallel 2, EXL3 3-bit routed experts, 5,296 experts in pinned host
+        RAM with a 512-slot VRAM cache, DSpark speculative decoding with 5 draft tokens, a 1M-token window, and an fp8 KV cache.</p>
+      <p>The speed curve is the recipe's own <code>bench/codeconc.py</code>: each stream asks for a complete program in Python, with thinking
+        off, temperature 0 and up to 1,536 output tokens. The long prompt is the recipe's <code>needle-test.py 6300</code>, cold, at 100,834 prompt
+        tokens.</p>
+      <table>
+        <tr><th>People at once</th><th class="n">Tokens a second each</th><th class="n">Total</th><th class="n">First token</th></tr>
+        <tr><td>1</td><td class="n">195.2</td><td class="n">190.0</td><td class="n">0.22 s</td></tr>
+        <tr><td>4</td><td class="n">101.8</td><td class="n">347.8</td><td class="n">0.16 s</td></tr>
+        <tr><td>8</td><td class="n">56.5</td><td class="n">401.8</td><td class="n">0.24 s</td></tr>
+      </table>
+      <p>The recipe's own card claims 172.8 tokens a second for code with a 46K-token prompt, and 362.9 in total for four 46K streams,
+        measured on two Max-Q cards at 300 W. Our short-prompt numbers sit in line with that.</p>
+      <p>Power comes from <code>nvidia-smi</code> once a second, counting only seconds when a card was at least 50% busy. Memory is the container's
+        anon plus shmem at its peak (219.8 GiB), and the host's available memory fell by 221.5 GiB when the server started. The Opus band is
+        from earlier measurements: 95 tokens a second through the API at default effort, and about 115 in Will's sessions.</p>
+    </div>
+  </details>
+</main>
+
+<div class="actions"><div class="wrap">
+  <a class="btn" href="index.html">← Summary</a>
+  <span class="where">Speed · 2 of 5</span>
+  <a class="btn primary" href="quality.html">Next: Quality and tools →</a>
+</div></div>
+<script src="app.js"></script>
+</body>
+</html>

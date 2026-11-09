@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RTX PRO 6000 test</title>
+<meta name="description" content="What happened when we rented two RTX PRO 6000 cards and ran DeepSeek V4.1 Flash on our own Claude Code work.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<nav class="nav"><div class="wrap">
+  <a class="brand" href="index.html">RTX PRO 6000 test</a>
+  <a class="page" href="index.html" aria-current="page">Summary</a>
+  <a class="page" href="speed.html">Speed</a>
+  <a class="page" href="quality.html">Quality and tools</a>
+  <a class="page" href="broke.html">What broke</a>
+  <a class="page" href="method.html">How we ran it</a>
+</div></nav>
+
+<main class="wrap">
+  <header class="hero">
+    <p class="eyebrow">Rental test · November 8, 2026</p>
+    <h1>Two RTX PRO 6000 cards run DeepSeek V4.1 Flash twice as fast as Opus, and it passed 48 of 51 test tasks.</h1>
+    <p class="lede">Before buying two of these cards, we rented a box with the same two cards for 2.6 hours. We ran the model the way we
+      would run it at home, then gave it the same Claude Code work we gave Opus.</p>
+  </header>
+
+  <section class="stats" aria-label="The three numbers that matter">
+    <div class="stat"><div class="num">195<small>tokens/s</small></div><div class="label">for one person</div>
+      <div class="note">Opus streams about 95 to 115 a second in Will's sessions.</div></div>
+    <div class="stat"><div class="num">48<small>of 51</small></div><div class="label">task runs passed</div>
+      <div class="note">All three misses saved a correct report one folder too deep.</div></div>
+    <div class="stat"><div class="num">384<small>GB</small></div><div class="label">of host memory to buy</div>
+      <div class="note">The running model holds 220 GiB of the computer's memory.</div></div>
+  </section>
+
+  <section class="picture" data-picture="race" aria-label="One full round of the ten tasks">
+    <div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap">
+      <p class="title">One full round of the ten test tasks</p>
+      <button class="replay" type="button">Play again</button>
+    </div>
+    <div class="legend"><span><i style="background:var(--deepseek)"></i>DeepSeek on the rented cards</span>
+      <span><i style="background:var(--opus)"></i>Opus through the Claude API</span></div>
+    <div class="race">
+      <div class="lane" data-minutes="2.0"><span class="who">DeepSeek</span><div class="track"><div class="fill" style="background:var(--deepseek)"></div></div><span class="time">0.0 min</span></div>
+      <div class="lane" data-minutes="20.0"><span class="who">Opus</span><div class="track"><div class="fill" style="background:var(--opus)"></div></div><span class="time">0.0 min</span></div>
+    </div>
+    <p class="caption">Each bar fills at its real pace, with one minute of the test shown as one second here. DeepSeek finished the
+      round in 2 minutes and Opus in 20. Part of that gap is speed, since DeepSeek writes about twice as fast. Most of it is length,
+      because Opus wrote about five times more on a typical task, counting its thinking, while it checked its own work.</p>
+  </section>
+
+  <h2>What this means for buying the box</h2>
+  <p class="sub">Three things changed what we would buy, and one thing still needs a real-work trial.</p>
+  <div class="tiles two">
+    <div class="tile"><h3>The cheaper-to-cool card is enough</h3>
+      <p>While writing, each card drew about 245 watts and never passed 285. The Max-Q version is capped at 300 watts, so it writes
+        just as fast and is easier to cool when two cards sit side by side.</p></div>
+    <div class="tile"><h3>The host needs 384 GB of memory</h3>
+      <p>The model keeps a third of its experts and its lookup tables in the computer's memory, about 220 GiB, and that memory cannot
+        swap to disk. A 256 GB host would be too small.</p></div>
+    <div class="tile"><h3>Tool use is as clean as Opus</h3>
+      <p>Neither model made a single broken tool call. With 151 Barbara tool names in front of it, DeepSeek still picked the right
+        ones and never sent an email or applied a change it was told only to stage.</p></div>
+    <div class="tile"><h3>Hard work still needs a trial</h3>
+      <p>Our tasks are short and clear. Public benchmarks still rank DeepSeek below Opus on long, hard work, so the next step is a
+        day of real work with no client data on it.</p></div>
+  </div>
+
+  <h2>The rest of the story</h2>
+  <div class="tiles two">
+    <a class="tile" href="speed.html"><h3>Speed</h3><p>195 tokens a second for one person, and 402 a second in total for eight people
+      at once. A 100,000-token prompt took 10 seconds to read.</p><span class="go">Read about speed →</span></a>
+    <a class="tile" href="quality.html"><h3>Quality and tools</h3><p>48 of 51 runs passed, against 17 of 17 for Opus. Both models
+      handled the fake Barbara with its 151 tools.</p><span class="go">Read about quality →</span></a>
+    <a class="tile" href="broke.html"><h3>What broke</h3><p>Sixteen things went wrong, mostly in our own scripts. The worst one
+      cost 57 minutes, and 13 of them now have a check.</p><span class="go">Read what broke →</span></a>
+    <a class="tile" href="method.html"><h3>How we ran it</h3><p>A $3.47-an-hour box in France, the model and server from one public
+      recipe, and Claude Code with no personal settings.</p><span class="go">Read how we ran it →</span></a>
+  </div>
+  <footer>Measured November 8, 2026 by Claude Code for Will Arnett. Every number on these pages comes from the saved test results.</footer>
+</main>
+
+<div class="actions"><div class="wrap">
+  <span></span>
+  <span class="where">Summary · 1 of 5</span>
+  <a class="btn primary" href="speed.html">Next: Speed →</a>
+</div></div>
+<script src="app.js"></script>
+</body>
+</html>

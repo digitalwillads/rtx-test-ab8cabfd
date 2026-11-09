@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Quality and tools · RTX PRO 6000 test</title>
+<meta name="description" content="How DeepSeek V4.1 Flash on two rented RTX PRO 6000 cards did on the same Claude Code tasks as Opus, including a fake Barbara with 151 tools.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<nav class="nav"><div class="wrap">
+  <a class="brand" href="index.html">RTX PRO 6000 test</a>
+  <a class="page" href="index.html">Summary</a>
+  <a class="page" href="speed.html">Speed</a>
+  <a class="page" href="quality.html" aria-current="page">Quality and tools</a>
+  <a class="page" href="broke.html">What broke</a>
+  <a class="page" href="method.html">How we ran it</a>
+</div></nav>
+
+<main class="wrap">
+  <header class="hero">
+    <p class="eyebrow">Quality and tools</p>
+    <h1>DeepSeek passed 48 of 51 task runs, and every miss was a correct report saved in the wrong folder.</h1>
+    <p class="lede">Both models ran the same ten tasks in Claude Code with no personal settings or instructions, so the only
+      difference between the runs was the model.</p>
+  </header>
+
+  <section class="stats">
+    <div class="stat"><div class="num">48<small>of 51</small></div><div class="label">DeepSeek runs passed</div>
+      <div class="note">Seven tasks six times each, and the three Barbara tasks three times each.</div></div>
+    <div class="stat"><div class="num">17<small>of 17</small></div><div class="label">Opus runs passed</div>
+      <div class="note">Fewer runs, because each Opus run costs money through the API.</div></div>
+    <div class="stat"><div class="num">0</div><div class="label">broken tool calls</div>
+      <div class="note">Neither model called a tool that does not exist or sent arguments a tool could not read.</div></div>
+  </section>
+
+  <section class="picture" data-picture="runs">
+    <div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap">
+      <p class="title">Every run, in the order it ran</p>
+      <button class="replay" type="button">Play again</button>
+    </div>
+    <div class="legend"><span><i style="background:var(--good)"></i>✓ passed the grader</span>
+      <span><i style="background:var(--bad)"></i>✗ missed</span></div>
+    <div class="runs">
+      <div class="runrow"><div class="who">DeepSeek <span>on the rented cards, 51 runs</span></div><div class="squares" data-runs='[[true, &quot;Ads math, round 1, run 1: passed in 8 s&quot;], [true, &quot;Negative keywords, round 1, run 1: passed in 16 s&quot;], [true, &quot;Bug fix, round 1, run 1: passed in 7 s&quot;], [true, &quot;New feature, round 1, run 1: passed in 31 s&quot;], [true, &quot;Long meeting notes, round 1, run 1: passed in 17 s&quot;], [false, &quot;Code map, round 1, run 1: the correct report, saved in the orders folder instead of the main folder&quot;], [true, &quot;Client email, round 1, run 1: passed in 9 s&quot;], [true, &quot;Ads math, rounds 2-4, run 1: passed in 12 s&quot;], [true, &quot;Ads math, rounds 2-4, run 2: passed in 7 s&quot;], [true, &quot;Ads math, rounds 2-4, run 3: passed in 7 s&quot;], [true, &quot;Negative keywords, rounds 2-4, run 1: passed in 14 s&quot;], [true, &quot;Negative keywords, rounds 2-4, run 2: passed in 14 s&quot;], [true, &quot;Negative keywords, rounds 2-4, run 3: passed in 15 s&quot;], [true, &quot;Bug fix, rounds 2-4, run 1: passed in 6 s&quot;], [true, &quot;Bug fix, rounds 2-4, run 2: passed in 7 s&quot;], [true, &quot;Bug fix, rounds 2-4, run 3: passed in 6 s&quot;], [true, &quot;New feature, rounds 2-4, run 1: passed in 12 s&quot;], [true, &quot;New feature, rounds 2-4, run 2: passed in 27 s&quot;], [true, &quot;New feature, rounds 2-4, run 3: passed in 23 s&quot;], [true, &quot;Long meeting notes, rounds 2-4, run 1: passed in 36 s&quot;], [true, &quot;Long meeting notes, rounds 2-4, run 2: passed in 16 s&quot;], [true, &quot;Long meeting notes, rounds 2-4, run 3: passed in 24 s&quot;], [false, &quot;Code map, rounds 2-4, run 1: the correct report, saved in the orders folder instead of the main folder&quot;], [true, &quot;Code map, rounds 2-4, run 2: passed in 6 s&quot;], [true, &quot;Code map, rounds 2-4, run 3: passed in 9 s&quot;], [true, &quot;Client email, rounds 2-4, run 1: passed in 6 s&quot;], [true, &quot;Client email, rounds 2-4, run 2: passed in 8 s&quot;], [true, &quot;Client email, rounds 2-4, run 3: passed in 5 s&quot;], [true, &quot;Ads math, rounds 5-6, run 1: passed in 13 s&quot;], [true, &quot;Ads math, rounds 5-6, run 2: passed in 7 s&quot;], [true, &quot;Negative keywords, rounds 5-6, run 1: passed in 19 s&quot;], [true, &quot;Negative keywords, rounds 5-6, run 2: passed in 20 s&quot;], [true, &quot;Bug fix, rounds 5-6, run 1: passed in 7 s&quot;], [true, &quot;Bug fix, rounds 5-6, run 2: passed in 7 s&quot;], [true, &quot;New feature, rounds 5-6, run 1: passed in 24 s&quot;], [true, &quot;New feature, rounds 5-6, run 2: passed in 28 s&quot;], [true, &quot;Long meeting notes, rounds 5-6, run 1: passed in 20 s&quot;], [true, &quot;Long meeting notes, rounds 5-6, run 2: passed in 26 s&quot;], [false, &quot;Code map, rounds 5-6, run 1: the correct report, saved in the orders folder instead of the main folder&quot;], [true, &quot;Code map, rounds 5-6, run 2: passed in 8 s&quot;], [true, &quot;Client email, rounds 5-6, run 1: passed in 6 s&quot;], [true, &quot;Client email, rounds 5-6, run 2: passed in 6 s&quot;], [true, &quot;Staged pause (Barbara), Barbara rounds, run 1: passed in 8 s&quot;], [true, &quot;Staged pause (Barbara), Barbara rounds, run 2: passed in 7 s&quot;], [true, &quot;Staged pause (Barbara), Barbara rounds, run 3: passed in 7 s&quot;], [true, &quot;Spend spike case (Barbara), Barbara rounds, run 1: passed in 13 s&quot;], [true, &quot;Spend spike case (Barbara), Barbara rounds, run 2: passed in 16 s&quot;], [true, &quot;Spend spike case (Barbara), Barbara rounds, run 3: passed in 12 s&quot;], [true, &quot;Leads draft (Barbara), Barbara rounds, run 1: passed in 9 s&quot;], [true, &quot;Leads draft (Barbara), Barbara rounds, run 2: passed in 8 s&quot;], [true, &quot;Leads draft (Barbara), Barbara rounds, run 3: passed in 9 s&quot;]]'></div></div>
+      <div class="runrow"><div class="who">Opus <span>through the Claude API, 17 runs</span></div><div class="squares" data-runs='[[true, &quot;Ads math, round 1, run 1: passed in 69 s&quot;], [true, &quot;Negative keywords, round 1, run 1: passed in 95 s&quot;], [true, &quot;Bug fix, round 1, run 1: passed in 32 s&quot;], [true, &quot;New feature, round 1, run 1: passed in 529 s&quot;], [true, &quot;Long meeting notes, round 1, run 1: passed in 72 s&quot;], [true, &quot;Code map, round 1, run 1: passed in 96 s&quot;], [true, &quot;Client email, round 1, run 1: passed in 164 s&quot;], [true, &quot;Ads math, round 2, run 1: passed in 64 s&quot;], [true, &quot;Negative keywords, round 2, run 1: passed in 166 s&quot;], [true, &quot;Bug fix, round 2, run 1: passed in 40 s&quot;], [true, &quot;New feature, round 2, run 1: passed in 513 s&quot;], [true, &quot;Long meeting notes, round 2, run 1: passed in 63 s&quot;], [true, &quot;Code map, round 2, run 1: passed in 125 s&quot;], [true, &quot;Client email, round 2, run 1: passed in 221 s&quot;], [true, &quot;Staged pause (Barbara), Barbara round, run 1: passed in 12 s&quot;], [true, &quot;Spend spike case (Barbara), Barbara round, run 1: passed in 36 s&quot;], [true, &quot;Leads draft (Barbara), Barbara round, run 1: passed in 25 s&quot;]]'></div></div>
+    </div>
+    <p class="caption">Each square is one run of one task, and hovering over a square shows which task it was. DeepSeek's three red
+      squares are the same task, the code map. Each time it wrote the right answers, but it saved the report inside the orders folder
+      instead of next to it. A grader that only checks the main folder counts that as a miss.</p>
+  </section>
+
+  <h2>DeepSeek finished every task sooner</h2>
+  <p class="sub">Opus's typical time on each task, divided by DeepSeek's.</p>
+  <section class="picture" data-picture="faster" style="margin-top:0">
+    <div style="display:flex;justify-content:flex-end"><button class="replay" type="button">Play again</button></div>
+    <div class="chart" aria-label="Bar chart of how many times sooner DeepSeek finished each task than Opus" data-bars='[{&quot;task&quot;: &quot;Ads math&quot;, &quot;ratio&quot;: 8.8, &quot;opus&quot;: 66, &quot;ds&quot;: 7.6}, {&quot;task&quot;: &quot;Negative keywords&quot;, &quot;ratio&quot;: 8.4, &quot;opus&quot;: 131, &quot;ds&quot;: 15.6}, {&quot;task&quot;: &quot;Bug fix&quot;, &quot;ratio&quot;: 5.4, &quot;opus&quot;: 36, &quot;ds&quot;: 6.7}, {&quot;task&quot;: &quot;New feature&quot;, &quot;ratio&quot;: 20.3, &quot;opus&quot;: 521, &quot;ds&quot;: 25.6}, {&quot;task&quot;: &quot;Long meeting notes&quot;, &quot;ratio&quot;: 3.1, &quot;opus&quot;: 68, &quot;ds&quot;: 22.1}, {&quot;task&quot;: &quot;Code map&quot;, &quot;ratio&quot;: 13.0, &quot;opus&quot;: 110, &quot;ds&quot;: 8.5}, {&quot;task&quot;: &quot;Client email&quot;, &quot;ratio&quot;: 31.8, &quot;opus&quot;: 192, &quot;ds&quot;: 6.1}, {&quot;task&quot;: &quot;Spend spike case (Barbara)&quot;, &quot;ratio&quot;: 2.7, &quot;opus&quot;: 36, &quot;ds&quot;: 13.3}, {&quot;task&quot;: &quot;Leads draft (Barbara)&quot;, &quot;ratio&quot;: 2.9, &quot;opus&quot;: 25, &quot;ds&quot;: 8.6}, {&quot;task&quot;: &quot;Staged pause (Barbara)&quot;, &quot;ratio&quot;: 1.7, &quot;opus&quot;: 12, &quot;ds&quot;: 7.4}]'></div>
+    <p class="caption">The biggest gaps come from tasks where Opus wrote much more than it had to. On the client email, Opus wrote
+      27 times more than DeepSeek, mostly thinking and checking, so it took 192 seconds against DeepSeek's 6. On the Barbara tasks,
+      where both models mostly wait on tools, DeepSeek was only 2 to 3 times sooner.</p>
+  </section>
+
+  <h2>The ten tasks</h2>
+  <p class="sub">Each task is a small job like the ones our automation does, with made-up data and a grader that checks the result.</p>
+  <div class="tiles two">
+    <div class="tile"><h3>Ads math</h3><p>From a Google Ads export, find the three ad groups with the worst cost per conversion, the
+      spend that brought no conversions, and the campaign with the best return.</p></div>
+    <div class="tile"><h3>Negative keywords</h3><p>From 75 search terms for a plumbing company, pick the 25 that come from job
+      seekers, do-it-yourselfers and shoppers, and keep every term from a possible customer.</p></div>
+    <div class="tile"><h3>Bug fix</h3><p>Make failing tests pass without touching the tests. Two hidden tests then check that the fix
+      is real.</p></div>
+    <div class="tile"><h3>New feature</h3><p>Write two functions from their descriptions. Hidden tests check 27 cases, including
+      inputs that must be refused.</p></div>
+    <div class="tile"><h3>Long meeting notes</h3><p>Answer five questions from a year of notes, about 60,000 tokens, where some
+      decisions changed later and only the latest one counts.</p></div>
+    <div class="tile"><h3>Code map</h3><p>In a small order system, name the function that computes the total and every real caller
+      of the discount function, while ignoring a comment and an unused function that look like callers.</p></div>
+    <div class="tile"><h3>Client email</h3><p>Explain a rise in cost per lead to a client in under 120 words, with both numbers, the
+      three-part plan, no jargon and no em dashes.</p></div>
+    <div class="tile"><h3>Spend spike case (Barbara)</h3><p>Compare yesterday's spend with the 7-day average. When it is more than
+      30% higher, open a case with the numbers, and change nothing in the ads.</p></div>
+    <div class="tile"><h3>Leads draft (Barbara)</h3><p>Find a client's three newest leads, which arrive out of order, and draft an
+      email that lists them. The model must not send it.</p></div>
+    <div class="tile"><h3>Staged pause (Barbara)</h3><p>Stage a pause of one campaign for review, next to a campaign with almost the
+      same name. The model must not apply it.</p></div>
+  </div>
+
+  <h2>Tool use was as clean as Opus</h2>
+  <p class="sub">Claude Code does everything through tools, so we kept every session's record and counted the calls.</p>
+  <div class="tiles two">
+    <div class="tile"><h3>DeepSeek, 14 runs of the seven basic tasks</h3>
+      <p>95 tool calls, about 7 a run. Three failed, and all three were test runs that were supposed to fail before the fix. Six times it
+        made several calls at once.</p></div>
+    <div class="tile"><h3>Opus, 7 runs of the same tasks</h3>
+      <p>50 tool calls, about 7 a run. One failed, a folder listing that found nothing. Five times it made several calls at once.</p></div>
+    <div class="tile"><h3>A fake Barbara with 151 tools</h3>
+      <p>Our automation hands Claude Code about 150 Barbara tools at once, and a long list is where a weaker model picks the wrong one.
+        So we built a stand-in with the same 151 tool names and three made-up clients.</p>
+      <p class="now">DeepSeek passed 9 of 9 and Opus 3 of 3, with no failed calls. Both loaded tools on demand through Claude Code's tool
+        search, and neither sent an email or applied a change.</p></div>
+    <div class="tile"><h3>It checked its own work</h3>
+      <p>On the code map, DeepSeek parsed the code to tell a real call from a comment that only mentions the function. On the spend
+        task, it reported a 44.23% rise, which is exact. Our first grader wanted one decimal place and wrongly marked it as a miss.</p></div>
+  </div>
+
+  <details>
+    <summary>For Jacob: every task, both models</summary>
+    <div class="body">
+      <table>
+        <tr><th>Task</th><th class="n">DeepSeek runs</th><th class="n">passed</th><th class="n">typical s</th><th class="n">Opus runs</th><th class="n">passed</th><th class="n">typical s</th><th class="n">Opus wrote ×</th></tr>
+        <tr><td>Ads math</td><td class="n">6</td><td class="n">6</td><td class="n">7.6</td><td class="n">2</td><td class="n">2</td><td class="n">66.3</td><td class="n">6.7</td></tr>
+        <tr><td>Negative keywords</td><td class="n">6</td><td class="n">6</td><td class="n">15.6</td><td class="n">2</td><td class="n">2</td><td class="n">130.6</td><td class="n">6.2</td></tr>
+        <tr><td>Bug fix</td><td class="n">6</td><td class="n">6</td><td class="n">6.7</td><td class="n">2</td><td class="n">2</td><td class="n">36.2</td><td class="n">3.8</td></tr>
+        <tr><td>New feature</td><td class="n">6</td><td class="n">6</td><td class="n">25.6</td><td class="n">2</td><td class="n">2</td><td class="n">521.0</td><td class="n">11.7</td></tr>
+        <tr><td>Long meeting notes</td><td class="n">6</td><td class="n">6</td><td class="n">22.1</td><td class="n">2</td><td class="n">2</td><td class="n">67.6</td><td class="n">2.1</td></tr>
+        <tr><td>Code map</td><td class="n">6</td><td class="n">3</td><td class="n">8.5</td><td class="n">2</td><td class="n">2</td><td class="n">110.5</td><td class="n">8.7</td></tr>
+        <tr><td>Client email</td><td class="n">6</td><td class="n">6</td><td class="n">6.1</td><td class="n">2</td><td class="n">2</td><td class="n">192.2</td><td class="n">27.5</td></tr>
+        <tr><td>Spend spike case (Barbara)</td><td class="n">3</td><td class="n">3</td><td class="n">13.3</td><td class="n">1</td><td class="n">1</td><td class="n">36.2</td><td class="n">2.4</td></tr>
+        <tr><td>Leads draft (Barbara)</td><td class="n">3</td><td class="n">3</td><td class="n">8.6</td><td class="n">1</td><td class="n">1</td><td class="n">25.3</td><td class="n">2.5</td></tr>
+        <tr><td>Staged pause (Barbara)</td><td class="n">3</td><td class="n">3</td><td class="n">7.4</td><td class="n">1</td><td class="n">1</td><td class="n">12.4</td><td class="n">1.7</td></tr>
+      </table>
+      <p>"Typical s" is the median wall time of a run in Claude Code, model plus tools. "Opus wrote ×" is Opus's median output tokens
+        divided by DeepSeek's, thinking included. DeepSeek ran on the box with Claude Code 2.1.319 pointed at the server's Anthropic Messages
+        endpoint; Opus ran on Will's Mac through the API at default effort. Every run used an empty <code>CLAUDE_CONFIG_DIR</code> in a fresh
+        <code>/tmp</code> folder, because Claude Code reads <code>.claude/CLAUDE.md</code> from every parent folder even with an empty config.</p>
+      <p>The grader for each task is in <code>tasks/grade.py</code>, and <code>tasks/test_grade.py</code> checks it against 10 right and 10 wrong
+        answers. The Barbara tasks are graded from the fake server's own log of every call, so a forbidden call fails the run even when
+        the final answer looks right.</p>
+    </div>
+  </details>
+</main>
+
+<div class="actions"><div class="wrap">
+  <a class="btn" href="speed.html">← Speed</a>
+  <span class="where">Quality and tools · 3 of 5</span>
+  <a class="btn primary" href="broke.html">Next: What broke →</a>
+</div></div>
+<script src="app.js"></script>
+</body>
+</html>

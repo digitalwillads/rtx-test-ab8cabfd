@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>What broke · RTX PRO 6000 test</title>
+<meta name="description" content="Everything that went wrong during the RTX PRO 6000 rental test, what it cost, and the check that now stops each one.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap">
+<link rel="stylesheet" href="style.css">
+<style>
+  .mark.start { transform: none; text-align: left; }
+  .mark.start::before { margin: 0 0 4px; }
+  .mark.end { transform: translateX(-100%); text-align: right; }
+  .mark.end::before { margin: 0 0 4px auto; }
+</style>
+</head>
+<body>
+<nav class="nav"><div class="wrap">
+  <a class="brand" href="index.html">RTX PRO 6000 test</a>
+  <a class="page" href="index.html">Summary</a>
+  <a class="page" href="speed.html">Speed</a>
+  <a class="page" href="quality.html">Quality and tools</a>
+  <a class="page" href="broke.html" aria-current="page">What broke</a>
+  <a class="page" href="method.html">How we ran it</a>
+</div></nav>
+
+<main class="wrap">
+  <header class="hero">
+    <p class="eyebrow">What broke</p>
+    <h1>Sixteen things went wrong during the test, and 13 of them now have a check in the kit.</h1>
+    <p class="lede">Two came from outside, and fourteen were mistakes in our own scripts. None came from the model or the cards.
+      The worst one cost 57 minutes of a billing box that did nothing.</p>
+  </header>
+
+  <section class="stats">
+    <div class="stat"><div class="num">16</div><div class="label">things went wrong</div>
+      <div class="note">Each one is listed below with what happened.</div></div>
+    <div class="stat"><div class="num">57<small>min</small></div><div class="label">of box time lost to one dead setup</div>
+      <div class="note">About $3.50 of the box's bill.</div></div>
+    <div class="stat"><div class="num">$9.08</div><div class="label">spent on the box in total</div>
+      <div class="note">Two rented boxes over 2.6 hours, at $3.47 an hour plus storage.</div></div>
+  </section>
+
+  <section class="picture" data-picture="timeline">
+    <div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap">
+      <p class="title">The whole rental, from the first box to the last (Utah time, November 8)</p>
+      <button class="replay" type="button">Play again</button>
+    </div>
+    <div class="legend"><span><i style="background:var(--lost)"></i>billed but not working</span>
+      <span><i style="background:var(--load)"></i>loading</span><span><i style="background:var(--work)"></i>working</span>
+      <span><i style="background:var(--wait)"></i>waiting for our decision</span></div>
+    <div class="timeline" data-start="19:06:31" data-end="21:40:10" data-segs='[
+      ["19:06:31","19:26:30","lost","7:06 to 7:26 pm: the first box tried to load a server image that Docker Hub had deleted"],
+      ["19:27:02","19:30:36","load","7:27 to 7:30 pm: the second box loads"],
+      ["19:30:36","19:31:30","work","7:30 pm: setup starts, then dies within a minute"],
+      ["19:31:30","20:28:29","lost","7:31 to 8:28 pm: setup is dead, and the watcher waits for a line that never comes"],
+      ["20:28:29","20:41:20","work","8:28 to 8:41 pm: setup again in 6 minutes, then the server loads and warms up"],
+      ["20:41:20","21:01:02","work","8:41 to 9:01 pm: the speed tests and all 51 task runs"],
+      ["21:01:02","21:40:10","wait","9:01 to 9:40 pm: the box waits while we decide whether Will tries it himself"]]'></div>
+    <div class="ticks"><span data-at="19:30:00">7:30<b> pm</b></span><span data-at="20:00:00">8:00<b> pm</b></span><span data-at="20:30:00">8:30<b> pm</b></span>
+      <span data-at="21:00:00">9:00<b> pm</b></span><span data-at="21:30:00">9:30<b> pm</b></span></div>
+    <div class="marks">
+      <span class="mark start" data-at="19:06:31">7:06 pm, first box fails to load</span>
+      <span class="mark low" data-at="19:31:30">7:31 pm, setup dies</span>
+      <span class="mark" data-at="20:28:29">8:28 pm, found and restarted</span>
+      <span class="mark low" data-at="21:01:02">9:01 pm, all tests done</span>
+      <span class="mark end" data-at="21:40:10">9:40 pm, box destroyed</span>
+    </div>
+    <ol class="events">
+      <li>7:06 pm, the first box fails to load its image.</li>
+      <li>7:31 pm, setup dies in its first minute.</li>
+      <li>8:28 pm, we find it and restart setup.</li>
+      <li>9:01 pm, all tests are done.</li>
+      <li>9:40 pm, the box is destroyed.</li>
+    </ol>
+    <p class="caption">Red is time the box billed while it could not work. The short red stretch at the start cost almost nothing,
+      because Vast barely charges a box that never starts. The long one is the setup that died in its first minute while our watcher
+      waited for it. The real testing took about 20 minutes once the server was warm.</p>
+  </section>
+
+  <h2>From outside</h2>
+  <p class="sub">Two surprises from the services we rented, not from our code.</p>
+  <div class="tiles">
+    <div class="tile"><span class="tag outside">Outside</span><h3>The recipe's server image had been deleted</h3>
+      <p>The recipe names a vLLM test build by its tag, and Docker Hub had already removed that tag. The image was still there under
+        its fixed fingerprint, so we rented again with the fingerprint.</p>
+      <p class="now">Now the rent script checks that the image exists before it rents a box.</p></div>
+    <div class="tile"><span class="tag outside">Outside</span><h3>Vast keys did nothing until a two-factor login</h3>
+      <p>Both API keys Will made were refused for every action until the account logged in with a two-factor code. Vast emailed the
+        code to Will, so the script read it from his inbox and logged in.</p>
+      <p class="now">Now the kit has a login step. This one has no automatic check.</p></div>
+  </div>
+
+  <h2>In our own scripts</h2>
+  <p class="sub">Fourteen mistakes, most of them in the scripts that watched and graded the test.</p>
+  <div class="tiles">
+    <div class="tile"><span class="tag ours">Ours</span><h3>The watcher waited 57 minutes on a dead setup</h3>
+      <p>The watcher started a few seconds after setup had already died. It looked for the setup process, found none, and then waited
+        for a log line that could never come.</p>
+      <p class="now">Now every run writes a final exit line, even when it crashes, and watchers wait for that line.</p></div>
+    <div class="tile"><span class="tag ours">Ours</span><h3>The download tool read our patterns as file names</h3>
+      <p>We gave the Hugging Face download tool several patterns after one flag. It took the extra ones as file names, fetched the wrong
+        files, and setup died for lack of the recipe's scripts.</p>
+      <p class="now">Now each pattern has its own flag, and setup stops at once when the recipe files are missing.</p></div>
+    <div class="tile"><span class="tag ours">Ours</span><h3>The "plain" Opus runs read Will's personal instructions</h3>
+      <p>Claude Code reads an instruction file from every parent folder, even with empty settings, so our first Opus baseline ran with
+        Will's own rules. We proved it by asking the model which font those rules ban.</p>
+      <p class="now">Now every run happens in a fresh folder outside the home folder, and a guard refuses any folder with an instruction
+        file above it. We threw away that $5.27 baseline.</p></div>
+    <div class="tile"><span class="tag ours">Ours</span><h3>The fake Barbara crashed on every Opus run</h3>
+      <p>On the Mac we passed a relative results folder. The fake server runs inside each task's own folder, so it could not open its log
+        and died on the first call, and Opus scored 0 of 3 for our mistake.</p>
+      <p class="now">Now the folder is made absolute, the server checks its log when it starts, and the grader says when the server never
+        ran.</p></div>
+    <div class="tile"><span class="tag ours">Ours</span><h3>Our own setting broke the first server start</h3>
+      <p>The recipe passes every setting whose name starts with DS41 to the server without quotes. We had named one of ours that way, and
+        the spaces in it split into stray words.</p>
+      <p class="now">Now a test checks that the kit sets nothing with the recipe's prefixes.</p></div>
+    <div class="tile"><span class="tag ours">Ours</span><h3>A warm server was reported as failed</h3>
+      <p>The script waited for a "warm" line in the server's log. Finding it closed the stream early, and the shell's strict setting
+        counted that as a failure, even though the server was fine.</p>
+      <p class="now">Now a tested wait function ignores that.</p></div>
+    <div class="tile"><span class="tag ours">Ours</span><h3>A watcher read an older run's ending</h3>
+      <p>All runs shared one log, so a new watcher found the exit line of an earlier failed start and reported a failure that was not
+        real.</p>
+      <p class="now">Now each run writes its own fresh log.</p></div>
+    <div class="tile"><span class="tag ours">Ours</span><h3>The first speed test measured zero</h3>
+      <p>The recipe's test script adds its own path to the address we give it, so the address had to end in /v1. Without that, every
+        request hit a missing page and the test reported zero tokens.</p>
+      <p class="now">Now the speed test fails loudly when it measures zero tokens.</p></div>
+    <div class="tile"><span class="tag ours">Ours</span><h3>The grader rejected a correct answer</h3>
+      <p>DeepSeek reported a 44.23% rise in spend, which is exact, but the grader only allowed one decimal place.</p>
+      <p class="now">Now the grader takes any decimals, and its self-check includes that real answer.</p></div>
+    <div class="tile"><span class="tag ours">Ours</span><h3>A package name looked like an error</h3>
+      <p>While the box loaded, Vast's status listed software packages, and one is named liberror-perl. Our error check matched the letters
+        "rror" and stopped the rent script.</p>
+      <p class="now">Now the check matches only the shapes of real Docker errors.</p></div>
+    <div class="tile"><span class="tag ours">Ours</span><h3>Destroy asked "are you sure?" and quietly said no</h3>
+      <p>The Vast tool asks for a yes before it destroys a box. With nobody at the keyboard it took silence as a no, so the six-hour safety
+        timer would never have destroyed anything.</p>
+      <p class="now">Now destroy answers yes, then checks that the box is really gone.</p></div>
+    <div class="tile"><span class="tag ours">Ours</span><h3>The SSD check said yes to a mode that was not built</h3>
+      <p>Setup reported that the memory-saving SSD mode was available, because it found the mode's helper files. The patch was never
+        applied, and it reads a different number format than this model pack.</p>
+      <p class="now">Now the check looks for the applied patch inside the server code.</p></div>
+    <div class="tile"><span class="tag ours">Ours</span><h3>The key helper cut two characters out of the API key</h3>
+      <p>The small script that hands Claude Code its API key used a character escape that the Mac's version of the tool does not support,
+        so it deleted every x, 2 and 7 in the key.</p>
+      <p class="now">Fixed in the helper. This one has no automatic check.</p></div>
+    <div class="tile"><span class="tag ours">Ours</span><h3>Hidden Mac files rode along to the box</h3>
+      <p>Copying the kit from the Mac added hidden macOS files next to every file. DeepSeek noticed them in one task and correctly ignored
+        them.</p>
+      <p class="now">Now the copy leaves them out. This one has no automatic check.</p></div>
+  </div>
+
+  <details>
+    <summary>For Jacob: the checks and where they live</summary>
+    <div class="body">
+      <p>Everything is in <code>~/Desktop/projects/gpu-box-test</code>, a local git repository. Each check was written from the real case and
+        fails without its fix.</p>
+      <table>
+        <tr><th>Check</th><th>What it pins</th></tr>
+        <tr><td><code>test-local.sh</code></td><td>the pruned nightly tag fails the image preflight; destroy passes <code>-y</code> and confirms the box left
+          <code>show instances</code>; a build log naming liberror-perl is not an error, and a daemon error is</td></tr>
+        <tr><td><code>test-box.sh</code></td><td>a failing run still writes its exit line; <code>run-&lt;command&gt;.log</code> holds only the latest run; one pattern per
+          hf flag; setup stops without the recipe files; no kit variable uses the <code>DS41_</code>, <code>EXL3_</code>, <code>VLLM_EXL3_</code>, <code>VLLM_DS41_</code> or
+          <code>XMOE_</code> prefixes; <code>wait_for_line</code> sees its line under <code>pipefail</code> and fails when the process exits; the SSD check looks
+          inside vLLM; the try-it session runs behind the guard</td></tr>
+        <tr><td><code>tasks/test_guard.sh</code></td><td>a folder with a CLAUDE.md, .claude/CLAUDE.md or AGENTS.md above it is refused, including any folder under
+          Will's home</td></tr>
+        <tr><td><code>tasks/test_run.sh</code></td><td>a relative results folder still gets the fake server's call log, with a stub <code>claude</code> that starts the server
+          from the task's /tmp folder</td></tr>
+        <tr><td><code>tasks/test_grade.py</code></td><td>10 right answers pass and 10 wrong ones fail, including DeepSeek's real "44.23%"</td></tr>
+        <tr><td><code>box.sh bench</code></td><td>stops with an error when the speed curve reports zero output tokens</td></tr>
+      </table>
+      <p>Two more lessons for anyone running this again. On this Mac, <code>grep</code> is ugrep, which reads a <code>$</code> in the middle of a pattern as
+        an end-of-line anchor. And the Vast session key from the two-factor login cannot use the single-instance route, so the kit reads a
+        box's status from <code>show instances</code>.</p>
+    </div>
+  </details>
+</main>
+
+<div class="actions"><div class="wrap">
+  <a class="btn" href="quality.html">← Quality and tools</a>
+  <span class="where">What broke · 4 of 5</span>
+  <a class="btn primary" href="method.html">Next: How we ran it →</a>
+</div></div>
+<script src="app.js"></script>
+</body>
+</html>
